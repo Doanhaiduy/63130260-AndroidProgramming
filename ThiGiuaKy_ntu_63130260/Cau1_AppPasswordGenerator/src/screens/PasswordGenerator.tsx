@@ -2,6 +2,7 @@ import { View, Text, Switch, TouchableOpacity, SafeAreaView, Alert, ActivityIndi
 import React, { useState } from 'react';
 import Slider from '@react-native-community/slider';
 import { StatusBar } from 'expo-status-bar';
+import * as Clipboard from 'expo-clipboard';
 
 type Props = {};
 
@@ -13,6 +14,11 @@ const PasswordGenerator = (props: Props) => {
     const [includeLowercase, setIncludeLowercase] = useState(true);
     const [includeNumbers, setIncludeNumbers] = useState(false);
     const [includeSymbols, setIncludeSymbols] = useState(false);
+
+    const handleCopyPassword = async () => {
+        await Clipboard.setStringAsync(password);
+        Alert.alert('Success', 'Password copied to clipboard', [{ text: 'OK' }]);
+    };
 
     const handleGeneratePassword = () => {
         setLoading(true);
@@ -39,9 +45,12 @@ const PasswordGenerator = (props: Props) => {
         <SafeAreaView className='flex-1 bg-[#0a0e31] w-full items-center justify-center '>
             <StatusBar style='light' />
             <Text className='text-[26px] font-bold text-white '>Password Generator</Text>
-            <View className='mt-12 bg-[#1d2141] w-[90%] p-6 text-center rounded-xl'>
+            <TouchableOpacity
+                onPress={handleCopyPassword}
+                className='mt-12 bg-[#1d2141] w-[90%] p-6 text-center rounded-xl'
+            >
                 <Text className='text-center text-white text-[20px]'>{password}</Text>
-            </View>
+            </TouchableOpacity>
             <View className='mt-4 w-full items-center'>
                 <Text className='uppercase text-[#999] font-medium self-start ml-[7%]'>
                     length: <Text className='text-white'>{length}</Text>
