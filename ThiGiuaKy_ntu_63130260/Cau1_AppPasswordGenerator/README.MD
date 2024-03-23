@@ -26,10 +26,9 @@
 <img src="./assets/images/screenshot.jpg" alt="Ảnh màn hình" width="500">
 
 **Video minh họa:**
+<video controls width="500">
 
-<video controls width="500" autoplay >
-  <source src="./assets/videos/app.mp4" type="video/mp4">
-  Your browser does not support the video tag.
+  <source src="https://firebasestorage.googleapis.com/v0/b/snap-share-78f51.appspot.com/o/post%2F%C4%90o%C3%A0n%20H%E1%BA%A3i%20Duy%2F66911183-7ace-4e18-8ba7-67b6ebdf056f%2Fapp.mp466911183-7ace-4e18-8ba7-67b6ebdf056f?alt=media&token=d0b846c0-6a7b-419d-9f73-024e51caf0a6" type="video/mp4">
 </video>
 
 **Công nghệ:**
