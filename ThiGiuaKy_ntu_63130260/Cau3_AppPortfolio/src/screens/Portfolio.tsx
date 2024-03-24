@@ -1,7 +1,7 @@
 import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
 import { AntDesign, FontAwesome, FontAwesome5, FontAwesome6, MaterialIcons } from '@expo/vector-icons';
-import Animated from 'react-native-reanimated';
+import Animated, { FadeIn, FadeOut, SlideInRight, SlideOutLeft } from 'react-native-reanimated';
 // import Animated from 'react-native-reanimated';
 
 type Props = {};
@@ -71,7 +71,7 @@ const Portfolio = (props: Props) => {
     const [slideIndex, setSlideIndex] = useState(0);
     const data = SlideShow[slideIndex];
 
-    const onContinue = () => {
+    const handleContinue = () => {
         const isLastScreen = slideIndex === SlideShow.length - 1;
         if (isLastScreen) {
             setSlideIndex(0);
@@ -80,7 +80,7 @@ const Portfolio = (props: Props) => {
         }
     };
 
-    const onBack = () => {
+    const handleBack = () => {
         const isFirstScreen = slideIndex === 0;
         if (isFirstScreen) {
             setSlideIndex(SlideShow.length - 1);
@@ -103,25 +103,70 @@ const Portfolio = (props: Props) => {
                         height={150}
                         borderRadius={10000}
                     />
-                    <Text className='text-2xl font-semibold my-4 '>Doan Hai Duy</Text>
+                    <Text className='text-3xl font-semibold mt-4 mb-1 '>Doan Hai Duy</Text>
                     <Text className='text-sm text-[#8a8a8a] font-medium'>63130260 - FE Developer</Text>
                 </View>
 
-                <View className='px-4 mt-5 border-t-[1px] border-[#eee]' key={slideIndex}>
-                    <View>
-                        <Animated.Text className='text-3xl font-semibold my-4 uppercase'>{data.title}</Animated.Text>
-                        <Animated.View>{data.content}</Animated.View>
+                <View className='px-4 mt-5 ' key={slideIndex}>
+                    <View className='flex-row gap-2 '>
+                        {SlideShow.map((step_, index) => {
+                            const isActive = index === slideIndex;
+                            return (
+                                <View
+                                    key={index}
+                                    className={`flex-1 h-[3px] bg-gray-300 ${
+                                        isActive ? 'bg-[#263775]' : 'bg-[#eee]'
+                                    } rounded-full' `}
+                                />
+                            );
+                        })}
                     </View>
-                    <Animated.View className='mx-auto mt-10'>{data.icon}</Animated.View>
+                    <View>
+                        <Animated.Text
+                            entering={SlideInRight}
+                            exiting={SlideOutLeft}
+                            className='text-3xl font-semibold my-4 uppercase'
+                        >
+                            {data.title}
+                        </Animated.Text>
+                        <Animated.View entering={SlideInRight.delay(150)} exiting={SlideOutLeft}>
+                            {data.content}
+                        </Animated.View>
+                    </View>
+                    <Animated.View
+                        entering={FadeIn.duration(700)}
+                        exiting={FadeOut.duration(700)}
+                        className='mx-auto mt-10'
+                    >
+                        {data.icon}
+                    </Animated.View>
                 </View>
 
-                <View className='px-4 mt-auto flex-row '>
-                    <TouchableOpacity className='px-6 py-4 flex-row mr-3 bg-[#eee] rounded-full items-center justify-center'>
+                <View className='px-4 mt-auto flex-row'>
+                    <TouchableOpacity
+                        className='px-6 py-4 flex-row mr-3 bg-[#eee] rounded-full items-center justify-center'
+                        onPress={handleBack}
+                    >
                         <AntDesign name='caretleft' size={22} color='#263775' />
-                        <Text className='text-[18px] text-[#263775] font-semibold ml-2'>Contact</Text>
+                        <Animated.Text
+                            entering={FadeIn}
+                            exiting={FadeOut}
+                            className='text-[18px] text-[#263775] font-semibold ml-2'
+                        >
+                            {slideIndex === 0 ? SlideShow[SlideShow.length - 1].title : SlideShow[slideIndex - 1].title}
+                        </Animated.Text>
                     </TouchableOpacity>
-                    <TouchableOpacity className='items-center justify-center flex-1 py-4 flex-row bg-[#263775] rounded-full '>
-                        <Text className='text-[18px] font-semibold mr-2 text-white'>Skill</Text>
+                    <TouchableOpacity
+                        className='items-center justify-center flex-1 py-4 flex-row bg-[#263775] rounded-full '
+                        onPress={handleContinue}
+                    >
+                        <Animated.Text
+                            entering={FadeIn}
+                            exiting={FadeOut}
+                            className='text-[18px] font-semibold mr-2 text-white'
+                        >
+                            {slideIndex === SlideShow.length - 1 ? SlideShow[0].title : SlideShow[slideIndex + 1].title}
+                        </Animated.Text>
                         <AntDesign name='caretright' size={22} color='white' />
                     </TouchableOpacity>
                 </View>
