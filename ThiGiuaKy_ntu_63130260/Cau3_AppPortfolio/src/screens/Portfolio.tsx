@@ -1,11 +1,94 @@
 import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
-import { Path, Svg } from 'react-native-svg';
+import React, { useState } from 'react';
 import { AntDesign, FontAwesome, FontAwesome5, FontAwesome6, MaterialIcons } from '@expo/vector-icons';
+import Animated from 'react-native-reanimated';
+// import Animated from 'react-native-reanimated';
 
 type Props = {};
 
+const SlideShow = [
+    {
+        title: 'About me',
+        content: (
+            <Text className='text-base font-medium text-[#8a8a8a]'>
+                I am a 3rd year student at Nha Trang University, currently studying software engineering, I want to
+                become a software engineering engineer at a large company.
+            </Text>
+        ),
+        icon: <FontAwesome name='user' size={200} color='#263775' />,
+    },
+    {
+        title: 'Skill',
+        content: (
+            <View className='flex flex-row flex-wrap gap-y-2'>
+                <Text className='text-sm bg-[#f0f0f0] px-2 py-1 rounded-full mr-2'>JavaScript</Text>
+                <Text className='text-sm bg-[#f0f0f0] px-2 py-1 rounded-full mr-2'>TypeScript</Text>
+                <Text className='text-sm bg-[#f0f0f0] px-2 py-1 rounded-full mr-2'>ReactJs</Text>
+                <Text className='text-sm bg-[#f0f0f0] px-2 py-1 rounded-full mr-2'>React Native</Text>
+                <Text className='text-sm bg-[#f0f0f0] px-2 py-1 rounded-full mr-2'>Node.js</Text>
+                <Text className='text-sm bg-[#f0f0f0] px-2 py-1 rounded-full mr-2'>Express.js</Text>
+                <Text className='text-sm bg-[#f0f0f0] px-2 py-1 rounded-full mr-2'>MongoDB</Text>
+                <Text className='text-sm bg-[#f0f0f0] px-2 py-1 rounded-full mr-2'>Firebase</Text>
+            </View>
+        ),
+        icon: <FontAwesome5 name='code' size={200} color='#263775' />,
+    },
+    {
+        title: 'Education',
+        content: (
+            <View className=' gap-2'>
+                <View className='flex-row gap-2 p-2 items-center bg-[#eee] rounded-lg '>
+                    <Text className='text-base font-semibold'>Nha Trang University</Text>
+                </View>
+                <View className='flex-row gap-2 p-2 items-center bg-[#eee] rounded-lg justify-between'>
+                    <Text className='text-base font-semibold'>Software Engineering</Text>
+                    <Text className='text-base font-bold'>2021 - 2025</Text>
+                </View>
+            </View>
+        ),
+        icon: <FontAwesome6 name='book-open-reader' size={200} color='#263775' />,
+    },
+
+    {
+        title: 'Contact',
+        content: (
+            <View className=' gap-2'>
+                <View className='flex-row gap-2 p-2 items-center bg-[#eee] rounded-lg '>
+                    <Text className='text-base font-semibold'>Phone: </Text>
+                    <Text className='text-base'>+84 399998943</Text>
+                </View>
+                <View className='flex-row gap-2 p-2 items-center bg-[#eee] rounded-lg '>
+                    <Text className='text-base font-semibold'>Email: </Text>
+                    <Text className='text-base'>haiduytbt2k3@gmail.com</Text>
+                </View>
+            </View>
+        ),
+        icon: <MaterialIcons name='quick-contacts-dialer' size={200} color='#263775' />,
+    },
+];
+
 const Portfolio = (props: Props) => {
+    const [slideIndex, setSlideIndex] = useState(0);
+    const data = SlideShow[slideIndex];
+
+    const onContinue = () => {
+        const isLastScreen = slideIndex === SlideShow.length - 1;
+        if (isLastScreen) {
+            setSlideIndex(0);
+        } else {
+            setSlideIndex(slideIndex + 1);
+        }
+    };
+
+    const onBack = () => {
+        const isFirstScreen = slideIndex === 0;
+        if (isFirstScreen) {
+            setSlideIndex(SlideShow.length - 1);
+        } else {
+            setSlideIndex(slideIndex - 1);
+        }
+    };
+
     return (
         <SafeAreaView className=''>
             <View className='h-full'>
@@ -23,67 +106,13 @@ const Portfolio = (props: Props) => {
                     <Text className='text-2xl font-semibold my-4 '>Doan Hai Duy</Text>
                     <Text className='text-sm text-[#8a8a8a] font-medium'>63130260 - FE Developer</Text>
                 </View>
-                {/* <View className='px-4 mt-5 border-t-[1px] border-[#eee]'>
-                    <View>
-                        <Text className='text-3xl font-semibold my-4 uppercase'>About me</Text>
-                        <Text className='text-base font-medium text-[#8a8a8a] mt-2'>
-                            I am a 3rd year student at Nha Trang University, currently studying software engineering, I
-                            want to become a software engineering engineer at a large company.
-                        </Text>
-                    </View>
-                    <View className='mx-auto mt-10'>
-                        <FontAwesome name='user' size={200} color='#263775' />
-                    </View>
-                </View> */}
-                {/* <View className='px-4 mt-5 border-t-[1px] border-[#eee]'>
-                    <View>
-                        <Text className='text-3xl font-semibold my-4 uppercase'>Skill</Text>
-                        <View className='flex flex-row flex-wrap mt-2 gap-y-2'>
-                            <Text className='text-sm bg-[#f0f0f0] px-2 py-1 rounded-full mr-2'>JavaScript</Text>
-                            <Text className='text-sm bg-[#f0f0f0] px-2 py-1 rounded-full mr-2'>TypeScript</Text>
-                            <Text className='text-sm bg-[#f0f0f0] px-2 py-1 rounded-full mr-2'>ReactJs</Text>
-                            <Text className='text-sm bg-[#f0f0f0] px-2 py-1 rounded-full mr-2'>React Native</Text>
-                            <Text className='text-sm bg-[#f0f0f0] px-2 py-1 rounded-full mr-2'>Node.js</Text>
-                            <Text className='text-sm bg-[#f0f0f0] px-2 py-1 rounded-full mr-2'>Express.js</Text>
-                            <Text className='text-sm bg-[#f0f0f0] px-2 py-1 rounded-full mr-2'>MongoDB</Text>
-                            <Text className='text-sm bg-[#f0f0f0] px-2 py-1 rounded-full mr-2'>Firebase</Text>
-                        </View>
-                    </View>
-                    <View className='mx-auto mt-10'>
-                        <FontAwesome5 name='code' size={200} color='#263775' />
-                    </View>
-                </View> */}
 
-                {/* <View className='px-4 mt-5 border-t-[1px] border-[#eee]'>
+                <View className='px-4 mt-5 border-t-[1px] border-[#eee]' key={slideIndex}>
                     <View>
-                        <Text className='text-3xl font-semibold my-4 uppercase'>Education</Text>
-                        <View className='mt-2'>
-                            <Text className='text-sm font-semibold'>Nha Trang University</Text>
-                            <Text className='text-sm'>Software Engineering</Text>
-                            <Text className='text-sm'>2021 - 2025</Text>
-                        </View>
+                        <Animated.Text className='text-3xl font-semibold my-4 uppercase'>{data.title}</Animated.Text>
+                        <Animated.View>{data.content}</Animated.View>
                     </View>
-                    <View className='mx-auto mt-10'>
-                        <FontAwesome6 name='book-open-reader' size={200} color='#263775' />
-                    </View>
-                </View> */}
-                <View className='px-4 mt-5 border-t-[1px] border-[#eee]'>
-                    <View>
-                        <Text className='text-3xl font-semibold my-4 uppercase'>Contact</Text>
-                        <View className=' gap-2'>
-                            <View className='flex-row gap-2 p-2 items-center bg-[#eee] rounded-lg '>
-                                <Text className='text-base font-semibold'>Phone: </Text>
-                                <Text className='text-base'>+84 399998943</Text>
-                            </View>
-                            <View className='flex-row gap-2 p-2 items-center bg-[#eee] rounded-lg '>
-                                <Text className='text-base font-semibold'>Email: </Text>
-                                <Text className='text-base'>haiduytbt2k3@gmail.com</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View className='mx-auto mt-10'>
-                        <MaterialIcons name='quick-contacts-dialer' size={200} color='#263775' />
-                    </View>
+                    <Animated.View className='mx-auto mt-10'>{data.icon}</Animated.View>
                 </View>
 
                 <View className='px-4 mt-auto flex-row '>
