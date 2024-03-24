@@ -1,12 +1,31 @@
 import { FlatList, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { AntDesign, Entypo } from '@expo/vector-icons';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTodo, deleteTodo, toggleTodo } from '../store/todoSlice';
 
 type Props = {};
 
 const Todo = (props: Props) => {
     const { todos } = useSelector((state: any) => state.todo);
+    const dispatch = useDispatch();
+
+    const handleAddTodo = () => {
+        dispatch(
+            addTodo({
+                title: 'New Task',
+                completed: false,
+            })
+        );
+    };
+
+    const handleDeleteTodo = (id: number) => {
+        dispatch(deleteTodo(id));
+    };
+
+    const handleToggleTodo = (id: number) => {
+        dispatch(toggleTodo(id));
+    };
 
     return (
         <SafeAreaView className='flex-1 bg-white'>
@@ -18,7 +37,10 @@ const Todo = (props: Props) => {
                         if (!item.completed) {
                             return (
                                 <View className='flex-row items-center my-5 '>
-                                    <TouchableOpacity className='flex-row items-center gap-3 max-w-full w-[95%]'>
+                                    <TouchableOpacity
+                                        onPress={() => handleToggleTodo(item.id)}
+                                        className='flex-row items-center gap-3 max-w-full w-[95%]'
+                                    >
                                         <Entypo name='circle' size={24} color='black' />
                                         <Text
                                             className='text-base font-semibold text-[#032f54] mr-10'
@@ -27,13 +49,18 @@ const Todo = (props: Props) => {
                                             {item.title}
                                         </Text>
                                     </TouchableOpacity>
-                                    <Entypo name='trash' size={24} color='black' />
+                                    <TouchableOpacity onPress={() => handleDeleteTodo(item.id)}>
+                                        <Entypo name='trash' size={24} color='black' />
+                                    </TouchableOpacity>
                                 </View>
                             );
                         } else
                             return (
                                 <View className='flex-row items-center  my-5'>
-                                    <TouchableOpacity className='flex-row items-center gap-3 max-w-full  w-[95%]'>
+                                    <TouchableOpacity
+                                        onPress={() => handleToggleTodo(item.id)}
+                                        className='flex-row items-center gap-3 max-w-full  w-[95%]'
+                                    >
                                         <AntDesign name='checkcircle' size={24} color='black' />
                                         <Text
                                             className='text-base font-semibold line-through text-[#a9b7c4] flex-1'
@@ -45,7 +72,9 @@ const Todo = (props: Props) => {
                                             <Text className='text-[#777] font-medium'>completed</Text>
                                         </View>
                                     </TouchableOpacity>
-                                    <Entypo name='trash' size={24} color='black' />
+                                    <TouchableOpacity onPress={() => handleDeleteTodo(item.id)}>
+                                        <Entypo name='trash' size={24} color='black' />
+                                    </TouchableOpacity>
                                 </View>
                             );
                     }}
