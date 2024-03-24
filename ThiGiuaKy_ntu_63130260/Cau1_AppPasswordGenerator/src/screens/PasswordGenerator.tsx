@@ -47,7 +47,7 @@ const PasswordGenerator = (props: Props) => {
             <Text className='text-[26px] font-bold text-white '>Password Generator</Text>
             <TouchableOpacity
                 onPress={handleCopyPassword}
-                className='mt-12 bg-[#1d2141] w-[90%] p-6 text-center rounded-xl'
+                className='mt-12 bg-[#1d2141] w-[90%] p-6 text-center rounded-xl h-[80px]'
             >
                 <Text className='text-center text-white text-[20px]'>{password}</Text>
             </TouchableOpacity>
@@ -55,7 +55,7 @@ const PasswordGenerator = (props: Props) => {
                 <Text className='uppercase text-[#999] font-medium self-start ml-[7%]'>
                     length: <Text className='text-white'>{length}</Text>
                 </Text>
-                <View className='mt-2 bg-[#1d2141] w-[90%] p-6 text-center rounded-xl flex-row items-center'>
+                <View className='mt-2 bg-[#1d2141] w-[90%] p-6 h-[80px] text-center rounded-xl flex-row items-center'>
                     <Text className='text-white text-base pr-4'>6</Text>
                     <View className='flex-1'>
                         <Slider
@@ -73,7 +73,7 @@ const PasswordGenerator = (props: Props) => {
             </View>
             <View className='mt-4 w-full items-center'>
                 <Text className='uppercase text-[#999] font-medium self-start ml-[7%]'>Setting</Text>
-                <View className='mt-2 bg-[#1d2141] w-[90%] p-4 px-6 text-center rounded-xl flex-row items-center justify-between'>
+                <View className='mt-2 bg-[#1d2141] w-[90%] p-4 px-6 h-[80px] text-center rounded-xl flex-row items-center justify-between'>
                     <Text className='text-white text-base'>Include Uppercase</Text>
                     <Switch
                         trackColor={{ false: '#767577', true: '#81b0ff' }}
@@ -85,7 +85,7 @@ const PasswordGenerator = (props: Props) => {
                         value={includeUppercase}
                     />
                 </View>
-                <View className='mt-2 bg-[#1d2141] w-[90%] p-4 px-6 text-center rounded-xl flex-row items-center justify-between'>
+                <View className='mt-2 bg-[#1d2141] w-[90%] p-4 px-6 h-[80px] text-center rounded-xl flex-row items-center justify-between'>
                     <Text className='text-white text-base'>Include Lowercase</Text>
                     <Switch
                         trackColor={{ false: '#767577', true: '#81b0ff' }}
@@ -97,7 +97,7 @@ const PasswordGenerator = (props: Props) => {
                         value={includeLowercase}
                     />
                 </View>
-                <View className='mt-2 bg-[#1d2141] w-[90%] p-4 px-6 text-center rounded-xl flex-row items-center justify-between'>
+                <View className='mt-2 bg-[#1d2141] w-[90%] p-4 px-6 h-[80px] text-center rounded-xl flex-row items-center justify-between'>
                     <Text className='text-white text-base'>Include Numbers</Text>
                     <Switch
                         trackColor={{ false: '#767577', true: '#81b0ff' }}
@@ -109,7 +109,7 @@ const PasswordGenerator = (props: Props) => {
                         value={includeNumbers}
                     />
                 </View>
-                <View className='mt-2 bg-[#1d2141] w-[90%] p-4 px-6 text-center rounded-xl flex-row items-center justify-between'>
+                <View className='mt-2 bg-[#1d2141] w-[90%] p-4 px-6 h-[80px] text-center rounded-xl flex-row items-center justify-between'>
                     <Text className='text-white text-base'>Include Symbols</Text>
                     <Switch
                         trackColor={{ false: '#767577', true: '#81b0ff' }}
