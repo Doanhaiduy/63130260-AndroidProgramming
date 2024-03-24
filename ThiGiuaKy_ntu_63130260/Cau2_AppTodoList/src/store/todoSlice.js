@@ -1,7 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    todos: [],
+    todos: [
+        { id: 1, title: 'Learn React', completed: true },
+        { id: 2, title: 'Learn Redux', completed: false },
+        { id: 3, title: 'Learn Redux Toolkit ', completed: false },
+        { id: 4, title: 'Learn React Native', completed: true },
+        { id: 5, title: 'Learn ReactJs', completed: false },
+    ],
 };
 
 export const todoSlice = createSlice({
