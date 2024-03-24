@@ -1,8 +1,8 @@
-import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Linking, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
 import { AntDesign, FontAwesome, FontAwesome5, FontAwesome6, MaterialIcons } from '@expo/vector-icons';
 import Animated, { FadeIn, FadeOut, SlideInRight, SlideOutLeft } from 'react-native-reanimated';
-// import Animated from 'react-native-reanimated';
+import { Directions, Gesture, GestureDetector } from 'react-native-gesture-handler';
 
 type Props = {};
 
@@ -53,14 +53,20 @@ const SlideShow = [
         title: 'Contact',
         content: (
             <View className=' gap-2'>
-                <View className='flex-row gap-2 p-2 items-center bg-[#eee] rounded-lg '>
+                <TouchableOpacity
+                    className='flex-row gap-2 p-2 items-center bg-[#eee] rounded-lg '
+                    onPress={() => Linking.openURL(`tel:+84 399998943`)}
+                >
                     <Text className='text-base font-semibold'>Phone: </Text>
                     <Text className='text-base'>+84 399998943</Text>
-                </View>
-                <View className='flex-row gap-2 p-2 items-center bg-[#eee] rounded-lg '>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    className='flex-row gap-2 p-2 items-center bg-[#eee] rounded-lg '
+                    onPress={() => Linking.openURL(`mailto: haiduytbt2k3@gmail.com`)}
+                >
                     <Text className='text-base font-semibold'>Email: </Text>
                     <Text className='text-base'>haiduytbt2k3@gmail.com</Text>
-                </View>
+                </TouchableOpacity>
             </View>
         ),
         icon: <MaterialIcons name='quick-contacts-dialer' size={200} color='#263775' />,
@@ -89,6 +95,11 @@ const Portfolio = (props: Props) => {
         }
     };
 
+    const swipes = Gesture.Simultaneous(
+        Gesture.Fling().direction(Directions.RIGHT).onEnd(handleBack),
+        Gesture.Fling().direction(Directions.LEFT).onEnd(handleContinue)
+    );
+
     return (
         <SafeAreaView className=''>
             <View className='h-full'>
@@ -107,40 +118,42 @@ const Portfolio = (props: Props) => {
                     <Text className='text-sm text-[#8a8a8a] font-medium'>63130260 - FE Developer</Text>
                 </View>
 
-                <View className='px-4 mt-5 ' key={slideIndex}>
-                    <View className='flex-row gap-2 '>
-                        {SlideShow.map((step_, index) => {
-                            const isActive = index === slideIndex;
-                            return (
-                                <View
-                                    key={index}
-                                    className={`flex-1 h-[3px] bg-gray-300 ${
-                                        isActive ? 'bg-[#263775]' : 'bg-[#eee]'
-                                    } rounded-full' `}
-                                />
-                            );
-                        })}
-                    </View>
-                    <View>
-                        <Animated.Text
-                            entering={SlideInRight}
-                            exiting={SlideOutLeft}
-                            className='text-3xl font-semibold my-4 uppercase'
+                <GestureDetector gesture={swipes}>
+                    <View className='px-4 mt-5 ' key={slideIndex}>
+                        <View className='flex-row gap-2 '>
+                            {SlideShow.map((step_, index) => {
+                                const isActive = index === slideIndex;
+                                return (
+                                    <View
+                                        key={index}
+                                        className={`flex-1 h-[3px] bg-gray-300 ${
+                                            isActive ? 'bg-[#263775]' : 'bg-[#eee]'
+                                        } rounded-full' `}
+                                    />
+                                );
+                            })}
+                        </View>
+                        <View>
+                            <Animated.Text
+                                entering={SlideInRight.duration(300)}
+                                exiting={SlideOutLeft.duration(300)}
+                                className='text-3xl font-semibold my-4 uppercase'
+                            >
+                                {data.title}
+                            </Animated.Text>
+                            <Animated.View entering={SlideInRight.delay(150)} exiting={SlideOutLeft}>
+                                {data.content}
+                            </Animated.View>
+                        </View>
+                        <Animated.View
+                            entering={FadeIn.duration(700)}
+                            exiting={FadeOut.duration(700)}
+                            className='mx-auto mt-10'
                         >
-                            {data.title}
-                        </Animated.Text>
-                        <Animated.View entering={SlideInRight.delay(150)} exiting={SlideOutLeft}>
-                            {data.content}
+                            {data.icon}
                         </Animated.View>
                     </View>
-                    <Animated.View
-                        entering={FadeIn.duration(700)}
-                        exiting={FadeOut.duration(700)}
-                        className='mx-auto mt-10'
-                    >
-                        {data.icon}
-                    </Animated.View>
-                </View>
+                </GestureDetector>
 
                 <View className='px-4 mt-auto flex-row'>
                     <TouchableOpacity
