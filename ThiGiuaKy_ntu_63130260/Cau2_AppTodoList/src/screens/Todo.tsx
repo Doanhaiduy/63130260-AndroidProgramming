@@ -3,7 +3,7 @@ import React from 'react';
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTodo, deleteTodo, toggleTodo } from '../store/todoSlice';
-import Dialog from 'react-native-dialog';
+import Footer from '../components/Footer';
 
 type Props = {};
 
@@ -91,23 +91,13 @@ const Todo = (props: Props) => {
                     keyExtractor={(item) => item.id.toString()}
                 />
             </View>
-            <TouchableOpacity
-                onPress={() => setVisible(true)}
-                className='w-[85%] mx-auto bg-[#032f54] rounded-full items-center flex-row p-2 justify-between mt-10'
-            >
-                <AntDesign name='pluscircleo' size={24} color='transparent' className='' />
-                <Text className='text-white text-lg font-semibold '>Add New Task</Text>
-                <AntDesign name='pluscircle' size={40} color='white' />
-            </TouchableOpacity>
-            <View>
-                <Dialog.Container visible={visible}>
-                    <Dialog.Title>Add New Task</Dialog.Title>
-                    <Dialog.Description>Enter the name of the task you want to add to the list.</Dialog.Description>
-                    <Dialog.Input value={todoName} onChangeText={setTodoName} label='' />
-                    <Dialog.Button label='Cancel' onPress={() => setVisible(false)} />
-                    <Dialog.Button label='Add' onPress={() => handleAddTodo(todoName)} />
-                </Dialog.Container>
-            </View>
+            <Footer
+                setVisible={setVisible}
+                visible={visible}
+                todoName={todoName}
+                handleAddTodo={handleAddTodo}
+                setTodoName={setTodoName}
+            />
         </SafeAreaView>
     );
 };
