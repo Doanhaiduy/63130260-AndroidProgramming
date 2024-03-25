@@ -30,7 +30,13 @@ const Todo = (props: Props) => {
     };
 
     const handleDeleteTodo = (id: number) => {
-        dispatch(deleteTodo(id));
+        // check is todo has completed => delete
+        const isCompleted = todos.find((todo: any) => todo.id === id)?.completed;
+        if (isCompleted) {
+            dispatch(deleteTodo(id));
+        } else {
+            Alert.alert('Error', 'You can only delete completed tasks');
+        }
     };
 
     const handleToggleTodo = (id: number) => {
