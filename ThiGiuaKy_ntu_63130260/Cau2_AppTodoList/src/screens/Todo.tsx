@@ -4,6 +4,7 @@ import { AntDesign, Entypo } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTodo, deleteTodo, toggleTodo } from '../store/todoSlice';
 import Footer from '../components/Footer';
+import TodoItem from '../components/TodoItem';
 
 type Props = {};
 
@@ -51,25 +52,7 @@ const Todo = (props: Props) => {
                     data={todos}
                     renderItem={({ item }) => {
                         if (!item.completed) {
-                            return (
-                                <View className='flex-row items-center my-5 '>
-                                    <TouchableOpacity
-                                        onPress={() => handleToggleTodo(item.id)}
-                                        className='flex-row items-center gap-3 max-w-full w-[95%]'
-                                    >
-                                        <Entypo name='circle' size={24} color='black' />
-                                        <Text
-                                            className='text-base font-semibold text-[#032f54] mr-10'
-                                            numberOfLines={2}
-                                        >
-                                            {item.title}
-                                        </Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => handleDeleteTodo(item.id)}>
-                                        <Entypo name='trash' size={24} color='black' />
-                                    </TouchableOpacity>
-                                </View>
-                            );
+                            return <TodoItem onToggle={handleToggleTodo} onDelete={handleDeleteTodo} item={item} />;
                         } else
                             return (
                                 <View className='flex-row items-center  my-5'>

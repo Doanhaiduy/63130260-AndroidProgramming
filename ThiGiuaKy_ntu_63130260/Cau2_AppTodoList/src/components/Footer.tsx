@@ -3,9 +3,15 @@ import React from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import Dialog from 'react-native-dialog';
 
-type Props = {};
+type Props = {
+    setVisible: any;
+    visible: boolean;
+    todoName: string;
+    handleAddTodo: any;
+    setTodoName: any;
+};
 
-const Footer = ({ setVisible, visible, todoName, handleAddTodo, setTodoName }: any) => {
+const Footer = ({ setVisible, visible, todoName, handleAddTodo, setTodoName }: Props) => {
     return (
         <View className='mt-10'>
             <TouchableOpacity
