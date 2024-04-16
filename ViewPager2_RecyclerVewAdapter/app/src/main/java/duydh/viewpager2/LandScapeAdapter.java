@@ -71,4 +71,6 @@ public class LandScapeAdapter extends RecyclerView.Adapter<LandScapeAdapter.Item
             Toast.makeText(context, chuoiThongBao, Toast.LENGTH_SHORT).show();
         }
     }
+
+
 }
